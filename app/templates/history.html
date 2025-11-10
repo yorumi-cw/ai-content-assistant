@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="title">Історія генерацій</h1>
+  <p class="subtitle">Всього: {{ total }} записів</p>
+
+  <div class="row" style="margin: 12px 0">
+    <a href="/history/export.csv">
+      <button>Export CSV</button>
+    </a>
+    <a href="/import" style="margin-left:12px; text-decoration:underline; color:#22d3ee">Імпорт CSV</a>
+  </div>
+
+
+  <div class="card" style="overflow:auto">
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:8px">Коли</th>
+          <th style="text-align:left; padding:8px">Тема</th>
+          <th style="text-align:left; padding:8px">Тип/Тон</th>
+          <th style="text-align:left; padding:8px">Слова</th>
+          <th style="text-align:left; padding:8px">Latency</th>
+          <th style="text-align:left; padding:8px">Дія</th>
+        </tr>
+      </thead>
+      <tbody id="rows">
+        {% include "partials/history_rows.html" with context %}
+      </tbody>
+    </table>
+
+    <div id="hloading" class="indicator" style="display:none; margin-top:12px">Завантаження…</div>
+
+    {% if has_more %}
+      <div style="margin-top:12px">
+        <button
+          id="load-more"
+          hx-get="/history/rows?offset={{ next_offset }}&limit={{ limit }}"
+          hx-target="#rows"
+          hx-swap="beforeend"
+          hx-indicator="#hloading"
+        >Показати ще</button>
+      </div>
+    {% endif %}
+  </div>
+
+  <p style="margin-top:16px">
+    <a href="/" style="text-decoration:underline; color:#22d3ee">← Повернутись</a>
+  </p>
+{% endblock %}

@@ -1,0 +1,136 @@
+:root {
+  --bg: #0f172a;
+  --card: #111827;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #22d3ee;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 900px;
+  margin: 48px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+input,
+select,
+button,
+textarea {
+  background: #0b1220;
+  color: var(--text);
+  border: 1px solid #1f2937;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+button {
+  background: linear-gradient(90deg, #06b6d4, #22d3ee);
+  color: #0b1220;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+button:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.result {
+  white-space: pre-wrap;
+  background: #0b1220;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #1f2937;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #67e8f9;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th, td {
+  border-bottom: 1px solid #1f2937;
+  padding: 8px;
+  text-align: left;
+}
+
+.result pre {
+  font-family: Consolas, monospace;
+  font-size: 14px;
+}
+
+.indicator {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.btn-danger {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+  color: #0b1220;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.btn-danger:hover { opacity: .9; transform: scale(1.02); }

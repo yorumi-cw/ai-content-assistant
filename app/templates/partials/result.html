@@ -1,0 +1,15 @@
+{% if error %}
+  <div class="card" style="border-color:#b91c1c; background:#1f1111; margin-bottom:12px">
+    <div class="result" style="background:#1f1111; border-color:#7f1d1d">{{ error }}</div>
+  </div>
+{% endif %}
+
+{% if result %}
+  <div class="card">
+    {% if latency_ms %}<div class="subtitle">Latency: {{ latency_ms }} ms</div>{% endif %}
+    <div class="row" style="justify-content:flex-end; margin-bottom:8px">
+      <button onclick="navigator.clipboard.writeText(document.querySelector('#copy-src').innerText)">Копіювати</button>
+    </div>
+    <div id="copy-src" class="result">{{ result }}</div>
+  </div>
+{% endif %}

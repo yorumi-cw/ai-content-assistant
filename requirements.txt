@@ -1,0 +1,9 @@
+fastapi
+httpx
+python-dotenv
+uvicorn[standard]
+jinja2
+sqlmodel
+sqlalchemy
+openai
+python-multipart

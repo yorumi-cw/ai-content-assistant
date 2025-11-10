@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="title">Імпорт тем із CSV</h1>
+  <p class="subtitle">Завантаж файл CSV зі списком тем. Можна один стовпець без заголовка або таблицю з колонкою <code>topic</code>.</p>
+
+  <div class="card">
+    <form
+      hx-post="/import"
+      hx-encoding="multipart/form-data"
+      hx-target="#import-result"
+      hx-swap="innerHTML"
+      hx-indicator="#loading"
+    >
+      <div class="row">
+        <div class="field">
+          <label>CSV файл</label>
+          <input type="file" name="file" accept=".csv" required>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <div class="field">
+          <label>Тип контенту</label>
+          <select name="mode">
+            <option value="headline">SEO headline</option>
+            <option value="description">Description</option>
+            <option value="post">Short post</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Тон</label>
+          <select name="tone">
+            <option value="neutral">neutral</option>
+            <option value="informative">informative</option>
+            <option value="catchy">catchy</option>
+            <option value="formal">formal</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <div class="field">
+          <label>Temperature (0–1)</label>
+          <input type="number" name="temperature" min="0" max="1" step="0.1" value="0.7">
+        </div>
+        <div class="field">
+          <label>Max tokens (50–600)</label>
+          <input type="number" name="max_tokens" min="50" max="600" step="10" value="200">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <div class="field">
+          <label><input type="checkbox" name="has_header"> Є заголовок</label>
+        </div>
+        <div class="field">
+          <label>Назва колонки з темою</label>
+          <input type="text" name="column" value="topic">
+        </div>
+      </div>
+
+      <div id="loading" class="indicator" aria-live="polite" style="display:none; margin-top:12px">
+        Імпорт та генерація…
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <button type="submit">Старт імпорту</button>
+        <a href="/history" style="margin-left:12px; text-decoration:underline; color:#22d3ee">Перейти в історію</a>
+      </div>
+    </form>
+  </div>
+
+  <div id="import-result" style="margin-top:16px"></div>
+{% endblock %}

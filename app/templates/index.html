@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="title">AI Assistant — Генератор контенту</h1>
+  <p class="subtitle">Введи тему, обери тип, тон і за потреби підкрути параметри генерації.</p>
+
+  <div class="card">
+    <form
+      hx-post="/generate"
+      hx-target="#result"
+      hx-swap="innerHTML"         <!-- головне: innerHTML -->
+      hx-indicator="#loading"
+    >
+      <div class="row">
+        <div class="field">
+          <label>Тема</label>
+          <input type="text" name="topic"
+                 placeholder="Напр. benefits of dark mode in web apps"
+                 required value="{{ topic or '' }}" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <div class="field">
+          <label>Тип контенту</label>
+          <select name="mode">
+            <option value="headline" {{ 'selected' if mode=='headline' else '' }}>SEO headline</option>
+            <option value="description" {{ 'selected' if mode=='description' else '' }}>Description</option>
+            <option value="post" {{ 'selected' if mode=='post' else '' }}>Short post</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Тон</label>
+          <select name="tone">
+            <option value="neutral" {{ 'selected' if tone=='neutral' else '' }}>neutral</option>
+            <option value="informative" {{ 'selected' if tone=='informative' else '' }}>informative</option>
+            <option value="catchy" {{ 'selected' if tone=='catchy' else '' }}>catchy</option>
+            <option value="formal" {{ 'selected' if tone=='formal' else '' }}>formal</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <div class="field">
+          <label>Temperature (0–1)</label>
+          <input type="number" name="temperature" min="0" max="1" step="0.1" value="{{ temperature or 0.7 }}">
+        </div>
+        <div class="field">
+          <label>Max tokens (50–600)</label>
+          <input type="number" name="max_tokens" min="50" max="600" step="10" value="{{ max_tokens or 350 }}">
+        </div>
+        <div class="field" style="align-self:flex-end; display:flex; gap:8px; max-width:260px">
+          <button type="button" onclick="
+            const f=this.closest('form');
+            f.topic.value=''; f.mode.value='headline'; f.tone.value='neutral';
+            f.temperature.value=0.7; f.max_tokens.value=350;
+            document.querySelector('#result').innerHTML='';
+          ">Очистити</button>
+          <button type="submit">Згенерувати</button>
+        </div>
+      </div>
+
+      <div id="loading" class="indicator" aria-live="polite" style="display:none; margin-top:12px">
+        Генерація…
+      </div>
+    </form>
+  </div>
+
+  <!-- Порожній контейнер. ЙОГО НЕ ЧІПАЄМО -->
+  <div id="result" style="margin-top:16px"></div>
+
+  <div style="margin-top:16px">
+    <a href="/history" style="text-decoration:underline; color:#22d3ee">Переглянути історію</a>
+  </div>
+{% endblock %}

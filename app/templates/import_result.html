@@ -1,0 +1,20 @@
+<div class="card">
+  {% if error %}
+    <div class="result" style="background:#1f1111; border-color:#7f1d1d">{{ error }}</div>
+  {% else %}
+    <div class="subtitle">Усього тем: {{ total }} | Створено: {{ created }} | Помилок: {{ failed }}</div>
+    {% if preview %}
+      <div class="result" style="max-height:320px; overflow:auto">
+        {% for t, r in preview %}
+          <div style="margin-bottom:10px">
+            <div style="opacity:.7">Тема: <b>{{ t }}</b></div>
+            <div>{{ r }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div style="margin-top:12px">
+      <a href="/history" style="text-decoration:underline; color:#22d3ee">Переглянути історію</a>
+    </div>
+  {% endif %}
+</div>
